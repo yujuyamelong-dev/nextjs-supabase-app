@@ -22,6 +22,14 @@ export default function ProtectedLayout({
                 <DeployButton />
               </div>
             </div>
+            <div className="flex gap-4 items-center">
+              <Link
+                href="/protected/profile"
+                className="hover:text-foreground/80 transition"
+              >
+                프로필
+              </Link>
+            </div>
             {!hasEnvVars ? (
               <EnvVarWarning />
             ) : (
