@@ -1,16 +1,17 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useActionState, useOptimistic } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 import { updateProfileAction, type ProfileActionState } from "@/app/actions/profile";
-import { profileSchema, type ProfileFormValues } from "@/lib/validations/profile";
-import type { Profile } from "@/types/database.types";
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Card } from "@/components/ui/card";
+import { profileSchema, type ProfileFormValues } from "@/lib/validations/profile";
+import type { Profile } from "@/types/database.types";
 
 const initialState: ProfileActionState = {
   success: false,
@@ -18,10 +19,7 @@ const initialState: ProfileActionState = {
 };
 
 export function ProfileForm({ profile }: { profile: Profile }) {
-  const [state, formAction, isPending] = useActionState(
-    updateProfileAction,
-    initialState,
-  );
+  const [state, formAction, isPending] = useActionState(updateProfileAction, initialState);
 
   const [optimisticProfile, setOptimisticProfile] = useOptimistic(profile);
 
@@ -66,8 +64,8 @@ export function ProfileForm({ profile }: { profile: Profile }) {
         <Card
           className={`p-4 ${
             state.success
-              ? "bg-green-50 border-green-200 text-green-900"
-              : "bg-red-50 border-red-200 text-red-900"
+              ? "border-green-200 bg-green-50 text-green-900"
+              : "border-red-200 bg-red-50 text-red-900"
           }`}
         >
           {state.message}
@@ -84,9 +82,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
             aria-invalid={!!errors.username}
             disabled={isPending}
           />
-          {errors.username && (
-            <p className="text-sm text-red-600">{errors.username.message}</p>
-          )}
+          {errors.username && <p className="text-sm text-red-600">{errors.username.message}</p>}
           {state.errors?.username && (
             <p className="text-sm text-red-600">{state.errors.username[0]}</p>
           )}
@@ -101,9 +97,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
             aria-invalid={!!errors.full_name}
             disabled={isPending}
           />
-          {errors.full_name && (
-            <p className="text-sm text-red-600">{errors.full_name.message}</p>
-          )}
+          {errors.full_name && <p className="text-sm text-red-600">{errors.full_name.message}</p>}
         </div>
 
         <div className="space-y-2">
@@ -117,12 +111,8 @@ export function ProfileForm({ profile }: { profile: Profile }) {
             className="resize-none"
             rows={4}
           />
-          <p className="text-xs text-muted-foreground">
-            {(values.bio?.length ?? 0)}/500
-          </p>
-          {errors.bio && (
-            <p className="text-sm text-red-600">{errors.bio.message}</p>
-          )}
+          <p className="text-xs text-muted-foreground">{values.bio?.length ?? 0}/500</p>
+          {errors.bio && <p className="text-sm text-red-600">{errors.bio.message}</p>}
         </div>
 
         <div className="space-y-2">
@@ -134,9 +124,7 @@ export function ProfileForm({ profile }: { profile: Profile }) {
             aria-invalid={!!errors.website}
             disabled={isPending}
           />
-          {errors.website && (
-            <p className="text-sm text-red-600">{errors.website.message}</p>
-          )}
+          {errors.website && <p className="text-sm text-red-600">{errors.website.message}</p>}
         </div>
 
         <Button type="submit" disabled={isPending} className="w-full">
@@ -144,14 +132,9 @@ export function ProfileForm({ profile }: { profile: Profile }) {
         </Button>
       </form>
 
-      <div className="text-sm text-muted-foreground space-y-1 pt-4 border-t">
-        <p>
-          가입일: {new Date(optimisticProfile.created_at).toLocaleDateString("ko-KR")}
-        </p>
-        <p>
-          최종 수정:{" "}
-          {new Date(optimisticProfile.updated_at).toLocaleDateString("ko-KR")}
-        </p>
+      <div className="space-y-1 border-t pt-4 text-sm text-muted-foreground">
+        <p>가입일: {new Date(optimisticProfile.created_at).toLocaleDateString("ko-KR")}</p>
+        <p>최종 수정: {new Date(optimisticProfile.updated_at).toLocaleDateString("ko-KR")}</p>
       </div>
     </div>
   );

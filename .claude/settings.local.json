@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('lockfileVersion:', d.get\\('lockfileVersion'\\)\\); pkgs = d.get\\('packages', {}\\); targets = ['typescript-eslint', '@typescript-eslint/eslint-plugin', '@typescript-eslint/parser', 'eslint-plugin-import', 'prettier']; [print\\(k, pkgs[k].get\\('version',''\\)\\) for k in pkgs if any\\(t in k for t in targets\\) and 'node_modules' in k]\")",
+      "Bash(python3 -c ' *)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('version:', d.get\\('version'\\)\\)\")",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\(r'C:/Users/wornt/workspace/nextjs-supabase-app/node_modules/@typescript-eslint/parser/package.json'\\)\\); print\\('version:', d.get\\('version'\\)\\)\")",
+      "Bash(python3 *)",
+      "Bash(npm install *)",
+      "Bash(npx husky *)",
+      "Bash(npm run *)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'build: 개발 도구 설정 \\(ESLint, Prettier, Husky, lint-staged, type-check\\) *)",
+      "Bash(Start-Sleep -Seconds 5)",
+      "Bash(Get-Content \"C:\\\\Users\\\\wornt\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-wornt-workspace-nextjs-supabase-app\\\\dd46e2c9-8f6f-44fc-8672-efe57b0332df\\\\tasks\\\\b80140m5d.output\" -Tail 10)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_snapshot"
+    ]
+  }
+}

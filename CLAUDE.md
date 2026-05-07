@@ -55,11 +55,13 @@ components/           # React 컴포넌트들
 ### Supabase 클라이언트 구조
 
 **클라이언트 사이드 (`lib/supabase/client.ts`)**
+
 - 브라우저에서만 실행되는 Supabase 인스턴스
 - 클라이언트 컴포넌트에서 사용
 - 환경 변수는 `NEXT_PUBLIC_` 접두어 필요
 
 **서버 사이드 (`lib/supabase/server.ts`)**
+
 - 서버 컴포넌트와 Server Actions에서만 실행
 - 쿠키를 통해 세션 관리
 - 매번 새로운 인스턴스 생성 (Fluid compute 고려)
@@ -68,12 +70,15 @@ components/           # React 컴포넌트들
 ```typescript
 // 서버 액션/컴포넌트에서의 사용
 const supabase = await createClient();
-const { data: { user } } = await supabase.auth.getUser();
+const {
+  data: { user },
+} = await supabase.auth.getUser();
 ```
 
 ### Server Actions 패턴
 
 `app/actions/` 디렉토리의 Server Actions는:
+
 - FormData를 입력으로 받음
 - Zod로 유효성 검사
 - 서버의 Supabase 클라이언트 사용
@@ -83,12 +88,13 @@ const { data: { user } } = await supabase.auth.getUser();
 export async function updateProfileAction(
   _prevState: ProfileActionState,
   formData: FormData,
-): Promise<ProfileActionState>
+): Promise<ProfileActionState>;
 ```
 
 ### 폼 검증
 
 React Hook Form + Zod를 사용한 타입 안전한 폼 검증:
+
 - 스키마는 `lib/validations/` 디렉토리
 - Server Action에서도 같은 스키마로 재검증
 - 에러는 `fieldErrors` 형태로 반환
@@ -103,7 +109,7 @@ React Hook Form + Zod를 사용한 타입 안전한 폼 검증:
 
 ## 개발 시 주의사항
 
-1. **Server/Client 분리**: 
+1. **Server/Client 분리**:
    - `use server`와 `use client` 지시문을 명확히 구분
    - 서버 액션은 항상 서버 Supabase 클라이언트 사용
 

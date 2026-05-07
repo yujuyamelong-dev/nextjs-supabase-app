@@ -1,8 +1,9 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { createClient } from "@/lib/supabase/server";
+
 import { updateProfile } from "@/lib/supabase/profiles";
+import { createClient } from "@/lib/supabase/server";
 import { profileSchema } from "@/lib/validations/profile";
 
 export type ProfileActionState = {
@@ -45,10 +46,7 @@ export async function updateProfileAction(
     username: parsed.data.username,
     full_name: parsed.data.full_name ?? null,
     bio: parsed.data.bio ?? null,
-    website:
-      parsed.data.website && parsed.data.website !== ""
-        ? parsed.data.website
-        : null,
+    website: parsed.data.website && parsed.data.website !== "" ? parsed.data.website : null,
   });
 
   if (error) {
